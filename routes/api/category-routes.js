@@ -39,6 +39,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+//confirmed working
 router.post('/', async (req, res) => {
   try {
     const categoryData = await Category.create(req.body);
@@ -48,8 +49,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+
+router.put('/:id', async (req, res) => {
+  
 });
 
 router.delete('/:id', (req, res) => {
