@@ -9,7 +9,9 @@ const { upsert } = require('../../models/Product');
   // be sure to include its associated Category and Tag data
 router.get('/', async (req, res) => {
   try { 
-    const productData = await Product.findAll();
+    const productData = await Product.findAll({
+      include: [{ model: Category }, { model: Tag }],
+    });
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
@@ -21,7 +23,9 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
 router.get('/:id', async (req, res) => {
   try {
-    const productData = await upsert.findByPk(req.params.id);
+    const productData = await upsert.findByPk(req.params.id, {
+      include: [{ model: Category }, { model: Tag }],
+    });
     if (!productData) {
       res.status(404).json({ message: 'No product matches this ID'});
       return;
