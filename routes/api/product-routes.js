@@ -7,6 +7,8 @@ const { upsert } = require('../../models/Product');
 // get all products
   // find all products
   // be sure to include its associated Category and Tag data
+
+//confirmed working
 router.get('/', async (req, res) => {
   try { 
     const productData = await Product.findAll({
