@@ -44,12 +44,38 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+router.put('/:id', async (req, res) => {
+  try {
+    const tagData = await Tag.update(req.body, {
+      where: {
+        id: req.params.id,
+      }
+    });
+    if (!tagData[0]) {
+      res.status(404).json({ message: 'no tag matches this ID' });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const tagData = await Tag.destroy( {
+      where: {
+        id: req.params.id,
+      }
+    });
+    if (!tagData) {
+      res.status(404).json({ message: 'no tag matches this ID' });
+      return;
+    } 
+    res.status(200).json(tagData);
+   } catch (err) {
+     res.status(500).json(err);
+   }
 });
 
 module.exports = router;
